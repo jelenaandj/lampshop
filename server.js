@@ -23,12 +23,12 @@ next();
 
 ///get about
 app.get('/',(req,res)=>{
-    res.send('5');
+    res.send('564564');
 });
 
 
 //use products API routes
-app.use('/products', require('./routes/products'));
+app.use('/api/products', require('./routes/products'));
 
 
 const PORT=process.env.PORT || 5000;
