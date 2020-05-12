@@ -25,7 +25,7 @@ next();
 
 ///get about
 app.get('/',(req,res)=>{
-    res.send('hello everyone');
+    res.send('htttello');
 });
 
 

@@ -1,11 +1,36 @@
 const express= require('express');
 const router=express.Router();
 const User=require('../models/User');
+const bcrypt=require('bcryptjs');
+const {registerValidation, loginValidation}=require('../validation');
+
+//register
 
 router.post('/register', async (req,res)=>{
+    //validate first send(error.details[0].message);
+    //const {error}=schema.validate(req.body);
+const {error}=registerValidation(req.body);
+if(error) return res.status(400).json({
+       success:false,
+       message:error.details[0].message
+   });
+   ///is users email in database
+const emailExists= await User.findOne({email:req.body.email});
+if(emailExists) return res.status(400).json({
+    success:false,
+    message:'Email already exists'
+});
+    ///hash hash
+    const salt=await bcrypt.genSalt();
+    const hashPassword=await bcrypt.hash(req.body.password,salt);
+
     try {
-        const{name,email,password}=req.body;
-        const user=await User.create(req.body);
+        const{name,email}=req.body;
+        const user=await User.create({
+            name:name,
+            email:email,
+            password:hashPassword
+        });
         return res.status(201).json({
             success:true,
             data:user
@@ -14,5 +39,37 @@ router.post('/register', async (req,res)=>{
         res.status(400).send(error);
     }
 });
+
+///login
+router.post('/login', async(req,res)=>{
+        //validate first send(error.details[0].message);
+    //const {error}=schema.validate(req.body);
+const {error}=loginValidation(req.body);
+if(error) return res.status(400).json({
+       success:false,
+       message:error.details[0].message
+   });
+
+//    ///search database for a specific email
+   const user= await User.findOne({email:req.body.email});
+   const user2=await User.findOne({name:req.body.name})
+   if(!user || !user2) return res.status(400).json({
+       success:false,
+       message:'Email or username does not exist'
+   });
+//    //is pass corect
+   const validPassword=await bcrypt.compare(req.body.password, user.password);
+   if(!validPassword) return res.status(400).json({
+    success:false,
+    message:'Password not valid'
+    });
+
+//     ///if email and pass ok then log in
+    res.status(200).json({
+        success:true,
+        message:'logged in'
+    });
+});
+
 
 module.exports=router;
