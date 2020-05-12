@@ -19,19 +19,8 @@ router.get('/',async (req,res)=>{
         });
     }
 });
-// router.get('/',(req,res)=>{
-//     const products=Product.find();
-//     if(products){
-//         res.status(200).json({
-//                 success:true,
-//                 data:products
-//         });
-//     }else{
-//         return res.send(500).json({
-//                         success:false,
-//                         error:'Server error'
-//     })}
-// });
+
+//////////////////////////
 
 router.post('/', async(req,res)=>{
    try {
@@ -40,22 +29,14 @@ router.post('/', async(req,res)=>{
     return res.status(201).json({
         success:true,
         data:product
-    })
+    });
    } catch (error) {
-       console.log(error);
+       res.status(400).send(error);
    }
 });
-////res.send(res.json(products));
-//get one product 
-// router.get('/:id', (req,res)=>{
-//     // res.send(req.params.id)
-//     const foundProduct=products.find(product=>product.id===parseInt(req.params.id));
-//     if(foundProduct){
-//     res.json(products.filter(product=>product.id===parseInt(req.params.id)));
-//     }else{
-//         res.status(400).json({ message: `Proudct with id ${req.params.id} not found`});
-//     }
-// });
+
+
+////////////////////////
 router.get('/:id',async (req,res)=>{
 
     try {

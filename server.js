@@ -15,20 +15,25 @@ const app=express();
 //body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
 //cors middleware
 app.use(function (req, res, next) {
 res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 next();
   });
 
+
 ///get about
 app.get('/',(req,res)=>{
-    res.send('564564');
+    res.send('hello everyone');
 });
 
 
 //use products API routes
 app.use('/api/products', require('./routes/products'));
+
+//register API route
+app.use('/api/user', require('./routes/auth'));
 
 
 const PORT=process.env.PORT || 5000;
