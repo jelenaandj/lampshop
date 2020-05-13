@@ -3,9 +3,10 @@ const express=require('express');
 const dotenv= require('dotenv');
 const connectDB=require('./config/db')
 
+var cors=require('cors');
+
 dotenv.config({path:'./config/config.env'});
 //import auth token middleware
-const auth=require('./routes/verifyToken');
 
 connectDB();
 
@@ -13,16 +14,17 @@ connectDB();
 const app=express();
 
 ///MIDDLEWARE///
+app.use(cors());
 
 //body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 //cors middleware
-app.use(function (req, res, next) {
-res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-next();
-  });
+// app.use(function (req, res, next) {
+// res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+// next();
+//   });
 
 
 ///get about

@@ -32,10 +32,21 @@ if(emailExists) return res.status(400).json({
             email:email,
             password:hashPassword
         });
-        return res.status(201).json({
-            success:true,
-            data:user
-        });
+
+        /////CREATE JWT//////
+// const token=jwt.sign({_id:user._id,email:user.email}, process.env.SECRET_TOKEN );
+
+//     ///if email and pass ok then log in 
+    // res.header('auth-token',token).send(token);
+
+    res.status(200).json({
+        success:true,
+        message:'logged in'
+    });
+        // return res.status(201).json({
+        //     success:true,
+        //     data:user
+        // });
     } catch (error) {
         res.status(400).send(error);
     }
@@ -65,7 +76,7 @@ if(error) return res.status(400).json({
     message:'Password not valid'
     });
 /////CREATE JWT//////
-const token=jwt.sign({_id:user._id}, process.env.SECRET_TOKEN );
+const token=jwt.sign({_id:user._id,email:user.email}, process.env.SECRET_TOKEN );
 
 //     ///if email and pass ok then log in 
     res.header('auth-token',token).send(token);
