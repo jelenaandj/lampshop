@@ -4,6 +4,8 @@ const dotenv= require('dotenv');
 const connectDB=require('./config/db')
 
 dotenv.config({path:'./config/config.env'});
+//import auth token middleware
+const auth=require('./routes/verifyToken');
 
 connectDB();
 
@@ -29,11 +31,15 @@ app.get('/',(req,res)=>{
 });
 
 
-//use products API routes
+//use products API route
 app.use('/api/products', require('./routes/products'));
 
 //register API route
 app.use('/api/user', require('./routes/auth'));
+
+//cart route
+app.use('/api/cart', require('./routes/cart'));
+
 
 
 const PORT=process.env.PORT || 5000;
