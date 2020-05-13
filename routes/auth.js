@@ -52,10 +52,10 @@ if(error) return res.status(400).json({
 
 //    ///search database for a specific email
    const user= await User.findOne({email:req.body.email});
-   const user2=await User.findOne({name:req.body.name})
-   if(!user || !user2) return res.status(400).json({
+//    const user2=await User.findOne({name:req.body.name})
+   if(!user) return res.status(400).json({
        success:false,
-       message:'Email or username does not exist'
+       message:'Email does not exist'
    });
 //    //is pass corect
    const validPassword=await bcrypt.compare(req.body.password, user.password);
