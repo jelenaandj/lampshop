@@ -54,7 +54,7 @@ if(emailExists) return res.status(400).json({
 
 ///login
 router.post('/login', async(req,res)=>{
-    console.log('aaa');
+    // console.log('aaa');
         //validate first send(error.details[0].message);
     //const {error}=schema.validate(req.body);
 const {error}=loginValidation(req.body);
@@ -81,6 +81,7 @@ const token=jwt.sign({_id:user._id,email:user.email}, process.env.SECRET_TOKEN )
 
 //     ///if email and pass ok then log in 
     // res.header('auth-token',token).send(token);
+    ////TOKEN KROZ BODY!!!!!!!
     
     res.status(200).json({
         success:true,
