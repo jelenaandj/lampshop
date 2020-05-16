@@ -4,6 +4,8 @@ const User=require('../models/User');
 const bcrypt=require('bcryptjs');
 const {registerValidation, loginValidation}=require('../validation');
 const jwt=require('jsonwebtoken');
+const auth=require('./verifyToken');
+
 
 //register
 
@@ -91,5 +93,29 @@ const token=jwt.sign({_id:user._id,email:user.email}, process.env.SECRET_TOKEN )
     
 });
 
+//////////////////
+// GET ONE USER///
+router.get('/', auth, async (req,res)=>{
+    try {
+        console.log(req,'req')
+        const user=await User.findById(req.user._id);
+        console.log(user,'user');
+        if(user){      
+        return res.status(200).json({
+            success:true,
+            data:user
+        });}else{
+            return res.status(404).json({
+                success: false,
+                error: 'No user found'
+              });
+        }
+    } catch (error) {
+        return res.send(500).json({
+            success:false,
+            error:'Server error'
+        });
+    }
+})
 
 module.exports=router;
