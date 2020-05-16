@@ -97,9 +97,9 @@ const token=jwt.sign({_id:user._id,email:user.email}, process.env.SECRET_TOKEN )
 // GET ONE USER///
 router.get('/', auth, async (req,res)=>{
     try {
-        console.log(req,'req')
+        // console.log(req,'req')
         const user=await User.findById(req.user._id);
-        console.log(user,'user');
+        // console.log(user,'user');
         if(user){      
         return res.status(200).json({
             success:true,
@@ -115,6 +115,33 @@ router.get('/', auth, async (req,res)=>{
             success:false,
             error:'Server error'
         });
+    }
+});
+
+///////////////////
+////CHANGE USER(cart)
+router.post('/update', auth, async (req,res)=>{
+    try {
+        const user=await User.findById(req.user._id);
+        if(user){ 
+            const{cart}=req.body;
+            console.log(req.user._id+" id");
+            const userUpdate=await User.update({_id:req.user._id},
+                {$set:{cart}}
+            );  
+            console.log(userUpdate,'userupd')
+
+            return res.status(200).json({
+                success:true,
+                data:cart
+            });}else{
+                return res.status(404).json({
+                    success: false,
+                    error: 'cart not updated'
+                  });
+            }
+    } catch (error) {
+        res.status(400).send(error);
     }
 })
 
