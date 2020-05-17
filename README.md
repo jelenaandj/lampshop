@@ -1,2 +1,4 @@
 # lampshop 
-This is backend for lampfront application
+Backend for lampfront application
+
+https://lamp-shop.herokuapp.com/
