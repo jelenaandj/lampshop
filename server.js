@@ -43,8 +43,8 @@ app.use('/api/products', require('./routes/products'));
 //register API route
 app.use('/api/user', require('./routes/auth'));
 
-//cart route
-app.use('/api/cart', require('./routes/cart'));
+//orders route
+app.use('/api/orders', require('./routes/orders'));
 
 
 

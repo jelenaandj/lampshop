@@ -125,11 +125,11 @@ router.post('/update', auth, async (req,res)=>{
         const user=await User.findById(req.user._id);
         if(user){ 
             const{cart}=req.body;
-            console.log(req.user._id+" id");
+            // console.log(req.user._id+" id");
             const userUpdate=await User.update({_id:req.user._id},
                 {$set:{cart}}
             );  
-            console.log(userUpdate,'userupd')
+            // console.log(userUpdate,'userupd')
 
             return res.status(200).json({
                 success:true,
