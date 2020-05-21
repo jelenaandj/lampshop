@@ -13,6 +13,8 @@ if(error) return res.status(400).json({
 });
 try {
     const{name,address,countryCity,zip,newsletter,cart}=req.body;
+    // console.log(req.user._id+" id");
+
     const order=await Order.create({
         name:name,
         address:address,
