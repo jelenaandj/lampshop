@@ -154,17 +154,18 @@ router.post('/delete',auth,async (req,res)=>{
     try {
          //// delete cart from user
     const user=await User.findById(req.user._id);
-    console.log(user+" id");
+    // console.log(user+" id");
 
         if(user){ 
             // const{cart}=req.body;
-            console.log(req.user._id+" id");
+            // console.log(req.user._id+" id");
             await User.update({_id:req.user._id},
-                {$unset:{cart:1}}
+                {$unset:{cart:0}}
             );
             return res.status(200).json({
                 success:true,
-                message:'Cart deleted'
+                message:'Cart deleted',
+                data:[]
             });
         };  
             
