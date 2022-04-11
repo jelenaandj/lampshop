@@ -33,7 +33,7 @@ app.use(express.urlencoded({extended:false}));
 
 ///get about
 app.get('/',(req,res)=>{
-    res.send('hellllooooo');
+    res.send('hi');
 });
 
 
