@@ -1,7 +1,7 @@
 const express=require('express');
 // const mongoose=require('mongoose');
 const dotenv= require('dotenv');
-const connectDB=require('./config/db')
+const connectDB=require('../config/db')
 
 var cors=require('cors');
 
@@ -38,13 +38,13 @@ app.get('/',(req,res)=>{
 
 
 //use products API route
-app.use('/api/products', require('./routes/products'));
+app.use('/api/products', require('../routes/products'));
 
 //register API route
-app.use('/api/user', require('./routes/auth'));
+app.use('/api/user', require('../routes/auth'));
 
 //orders route
-app.use('/api/orders', require('./routes/orders'));
+app.use('/api/orders', require('../routes/orders'));
 
 
 
