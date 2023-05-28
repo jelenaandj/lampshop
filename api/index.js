@@ -32,7 +32,7 @@ app.use(express.urlencoded({extended:false}));
 
 
 ///get about
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
     res.send('hi');
 });
 
